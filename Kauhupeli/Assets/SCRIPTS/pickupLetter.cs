@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class pickupLetter : MonoBehaviour
 {
-    public GameObject collectTextObj, intText;
+    public GameObject collectTextObj, intText, monster;
     public AudioSource pickupSound, ambianceLayer1, ambianceLayer2, ambianceLayer3, ambianceLayer4, ambianceLayer5, ambianceLayer6, ambianceLayer7, ambianceLayer8;
     public bool interactable;
     public static int pagesCollected;
     public Text collectText;
+
+    void Start()
+    {
+        pagesCollected = 0;
+    }
 
     void OnTriggerStay(Collider other)
     {
@@ -34,6 +39,10 @@ public class pickupLetter : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 pagesCollected = pagesCollected + 1;
+                if (monster.active == false)
+                {
+                    monster.SetActive(true);
+                }
                 collectText.text = pagesCollected + "/8 pages";
                 collectTextObj.SetActive(true);
                 pickupSound.Play();
